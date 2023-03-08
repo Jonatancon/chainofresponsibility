@@ -1,28 +1,15 @@
 package co.com.udea.sevices.impl;
 
 import co.com.udea.model.Denominacion;
+import co.com.udea.model.enums.Constants;
 import co.com.udea.sevices.CadenaDispensamiento;
+import co.com.udea.sevices.util.ValidationUtil;
 
-public class Dispensador50mil implements CadenaDispensamiento {
-    private CadenaDispensamiento siguiente; //20
+public class Dispensador50mil extends CadenaDispensamiento {
 
-    private static final Integer CINCUENTA = 50_000;
-
-    @Override
-    public void asignarSiguiente(CadenaDispensamiento siguiente) {
-        this.siguiente = siguiente;
-    }
-
+    ValidationUtil validator = ValidationUtil.getInstance();
     @Override
     public void dispensar(Denominacion denominacion) {
-
-
-        System.out.println("Cantidad en billetes de 50 mil: " + denominacion.getCantidad() / CINCUENTA);
-
-        this.siguiente.asignarSiguiente(new Dispensador10mil());
-        Integer cantidad = denominacion.getCantidad() - (denominacion.getCantidad() / CINCUENTA) * CINCUENTA;
-        denominacion.setCantidad(cantidad);
-        this.siguiente.dispensar(denominacion);
-
+        validator.validarMonto(getCadenaDispensamiento(), denominacion, Constants.CINCUENTA_MIL.name());
     }
 }

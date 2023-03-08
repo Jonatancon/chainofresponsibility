@@ -2,9 +2,18 @@ package co.com.udea.sevices;
 
 import co.com.udea.model.Denominacion;
 
-public interface CadenaDispensamiento {
+public abstract class CadenaDispensamiento {
 
-    void asignarSiguiente (CadenaDispensamiento siguiente);
+    private CadenaDispensamiento sucesor;
 
-    void dispensar (Denominacion denominacion);
+    public void setCadenaDispensamiento (CadenaDispensamiento sucesor) {
+        this.sucesor = sucesor;
+    }
+
+    public CadenaDispensamiento getCadenaDispensamiento() {
+        return sucesor;
+    }
+
+    public abstract void dispensar (Denominacion denominacion);
+
 }
