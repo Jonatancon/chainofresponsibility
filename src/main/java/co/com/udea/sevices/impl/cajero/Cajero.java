@@ -13,21 +13,23 @@ public class Cajero extends CadenaDispensamiento {
 
     @Override
     public void dispensar(Denominacion denominacion) {
-        Dispensador100mil cien = new Dispensador100mil();
-        setCadenaDispensamiento(cien);
-
-        Dispensador50mil cincuenta =  new Dispensador50mil();
-        cien.setCadenaDispensamiento(cincuenta);
-
-        Dispensador20mil veinte = new Dispensador20mil();
-        cincuenta.setCadenaDispensamiento(veinte);
-
-        Dispensador10mil diez = new Dispensador10mil();
-        veinte.setCadenaDispensamiento(diez);
-
-        Dispensador5mil cinco = new Dispensador5mil();
-        diez.setCadenaDispensamiento(cinco);
+        link(
+                new Dispensador100mil(),
+                new Dispensador50mil(),
+                new Dispensador20mil(),
+                new Dispensador10mil(),
+                new Dispensador5mil()
+        );
 
         getCadenaDispensamiento().dispensar(denominacion);
+    }
+
+    private void link(CadenaDispensamiento first, CadenaDispensamiento... cadenaDispensamientos) {
+        CadenaDispensamiento head = first;
+        setCadenaDispensamiento(first);
+        for (CadenaDispensamiento cadena : cadenaDispensamientos) {
+            head.setCadenaDispensamiento(cadena);
+            head = cadena;
+        }
     }
 }
